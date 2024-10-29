@@ -1,0 +1,30 @@
+.floating_header {
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(-2.5px);
+    }
+    50%{
+        transform: translateY(2.5px);
+    }
+}
+
+.custom_header {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+/* Media Quries */
+@media screen and (max-width: 768px) {
+    .custom_header {
+        font-size: 12px !important;
+    }
+}
+@media screen and (max-width: 992px) {
+    .custom_header {
+        font-size: 14px !important;
+    }
+}
