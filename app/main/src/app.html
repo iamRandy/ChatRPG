@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/main_styles.css">
     <link rel="stylesheet" href="styles/overrider.css">
+    <link rel="stylesheet" href="../../../node_modules/bootstrap-icons/font/bootstrap-icons.css"> <!-- Link icons here -->
+
+
     <title>RPGApp</title>
 </head>
 <body class="bg-dark text-light">
@@ -13,11 +16,23 @@
     <div class="container-fluid">
         <div class="row text-center mt-5">
             <div class="floating_header col-8 bg-secondary rounded mx-auto">
-                <span class="custom_header">Hi there, how can I help you today?</span>
+                <span class="custom_header">RPG App</span>
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-outline-light btn-primary">Submit</button>
+    <div class="container fixed-bottom p-4">
+        <div class="row g-0">
+            <div class="col-10 form-group">
+                <textarea class="form-control border-0 rounded-0 bg-secondary" 
+                placeholder="Enter prompt here.." 
+                id="exampleFormControlTextarea1" 
+                rows="1"></textarea>
+            </div>
+            <button type="button" class="col-2 btn btn-secondary rounded-0">
+                <i class="bi bi-arrow-right"></i>
+            </button>
+        </div>
+    </div>
 
     <script type="module" src="./app.js"></script>
 </body>

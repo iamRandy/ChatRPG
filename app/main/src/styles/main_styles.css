@@ -17,14 +17,19 @@
     line-height: normal;
 }
 
+textarea::placeholder {
+    color: white;
+}
+
 /* Media Quries */
 @media screen and (max-width: 768px) {
     .custom_header {
-        font-size: 12px !important;
+        font-size: 20px !important;
     }
 }
 @media screen and (max-width: 992px) {
     .custom_header {
-        font-size: 14px !important;
+        font-size: 25px !important;
+        font-weight: bolder;
     }
 }
