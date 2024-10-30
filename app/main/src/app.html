@@ -13,22 +13,23 @@
 <body class="bg-dark text-light">
 
     <div class="container bg-transparent py-5"></div>
-    <div class="container-fluid">
+    <div id="text_output_area" class="container-fluid d-flex align-items-start flex-column overflow-scroll position-absolute top-0 w-100 text_output_area"></div>
+    <div class="container">
         <div class="row text-center mt-5">
             <div class="floating_header col-8 bg-secondary rounded mx-auto">
-                <span class="custom_header">RPG App</span>
+                <span id="logo" class="custom_header">App</span>
             </div>
         </div>
     </div>
     <div class="container fixed-bottom p-4">
         <div class="row g-0">
-            <div class="col-10 form-group">
-                <textarea class="form-control border-0 rounded-0 bg-secondary" 
+            <div class="col-10 col-md-11 form-group">
+                <textarea id="text_input" 
+                class="form-control border-0 rounded-0 bg-secondary" 
                 placeholder="Enter prompt here.." 
-                id="exampleFormControlTextarea1" 
                 rows="1"></textarea>
             </div>
-            <button type="button" class="col-2 btn btn-secondary rounded-0">
+            <button type="button" id="send_button" class="col-2 col-md-1 btn btn-secondary rounded-0">
                 <i class="bi bi-arrow-right"></i>
             </button>
         </div>

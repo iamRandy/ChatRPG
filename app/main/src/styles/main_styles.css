@@ -17,6 +17,12 @@
     line-height: normal;
 }
 
+.text_output_area {
+    height: calc(100vh - 90px);
+    max-height: calc(100vh - 90px);
+    
+}
+
 textarea::placeholder {
     color: white;
 }
