@@ -14,6 +14,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const textArea = document.getElementById("text_output_area");
     const input = document.getElementById("text_input");
     const sendButton = document.getElementById("send_button");
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("moveup");
+            } else {
+                entry.target.classList.remove("moveup");
+            }
+        });
+    });
+
+    const hiddenElements = document.querySelectorAll("show");
+    hiddenElements.forEach((el) => observer.observe(el));
 
     sendButton.addEventListener("touchend", (event) => {
         if (input.value == "") return;

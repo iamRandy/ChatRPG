@@ -18,10 +18,12 @@
 }
 
 .text_output_area {
-    height: calc(100vh - 90px);
-    max-height: calc(100vh - 90px);
-    
+    height: calc(100vh - 120px);
+    transform: translateY(40px);
+    transition: translate .2s ease-in-out;
 }
+
+
 
 textarea::placeholder {
     color: white;
