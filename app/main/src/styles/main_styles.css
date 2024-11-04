@@ -1,7 +1,3 @@
-.floating_header {
-    animation: floating 3s ease-in-out infinite;
-}
-
 @keyframes floating {
     0%, 100% {
         transform: translateY(-2.5px);
@@ -11,10 +7,23 @@
     }
 }
 
+.hide {
+    opacity: 0;
+}
+
 .custom_header {
-    display: inline-block;
-    vertical-align: middle;
-    line-height: normal;
+    position: absolute;
+    top: 30%;
+    transition: top 3s ease-in-out, opacity 1s ease-in-out;
+}
+
+.custom_header.floating {
+    animation: floating 3s ease-in-out infinite;
+}
+
+.custom_header.no_move {
+    top: 0;
+    transform: translateY(-40px);
 }
 
 .text_output_area {
@@ -22,8 +31,6 @@
     transform: translateY(40px);
     transition: translate .2s ease-in-out;
 }
-
-
 
 textarea::placeholder {
     color: white;
