@@ -1,5 +1,22 @@
 var currentContent = "";
 
+function communicateWithBackend(chatMessage, textArea) {
+    axios.post('http://localhost:8000/chat', {
+        userMessage: chatMessage
+    })
+    .then (response => {
+        // createBotChat(response.data, textArea);
+        console.log(response.data); // response back from backend
+    })
+    .catch(error => console.error('Error: ', error));
+}
+
+function createBotChat(msg, textArea) {
+    const responseChat = document.createElement("div");
+
+
+}
+
 function createChat(textArea) {
     const header = document.getElementById("logo");
     const title = document.getElementById("title");
@@ -7,6 +24,7 @@ function createChat(textArea) {
     newChat.className = "bg-secondary rounded-4 d-inline-block px-3 py-1 my-1";
     newChat.textContent = currentContent;
     newChat.style = "white-space: pre-wrap";
+    communicateWithBackend(currentContent, textArea);
     textArea.appendChild(newChat);
     currentContent = "";
     title.classList.remove("bg-secondary");
