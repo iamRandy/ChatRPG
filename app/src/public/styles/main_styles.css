@@ -1,0 +1,50 @@
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(-2.5px);
+    }
+    50%{
+        transform: translateY(2.5px);
+    }
+}
+
+.hide {
+    opacity: 0;
+}
+
+.custom_header {
+    position: absolute;
+    top: 30%;
+    transition: top 3s ease-in-out, opacity 1s ease-in-out;
+}
+
+.custom_header.floating {
+    animation: floating 3s ease-in-out infinite;
+}
+
+.custom_header.no_move {
+    top: 0;
+    transform: translateY(-40px);
+}
+
+.text_output_area {
+    height: calc(100vh - 120px);
+    transform: translateY(40px);
+    transition: translate .2s ease-in-out;
+}
+
+textarea::placeholder {
+    color: white;
+}
+
+/* Media Quries */
+@media screen and (max-width: 768px) {
+    .custom_header {
+        font-size: 20px !important;
+    }
+}
+@media screen and (max-width: 992px) {
+    .custom_header {
+        font-size: 25px !important;
+        font-weight: bolder;
+    }
+}
