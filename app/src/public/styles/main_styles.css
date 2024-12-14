@@ -32,6 +32,10 @@
     transition: translate .2s ease-in-out;
 }
 
+.custom_gradient {
+    background-image: linear-gradient(to bottom right, rgb(19, 26, 54), rgb(21, 22, 26));
+}
+
 textarea::placeholder {
     color: white;
 }

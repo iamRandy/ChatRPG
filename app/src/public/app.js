@@ -20,7 +20,7 @@ async function communicateWithBackend(chatMessage) {
 
 function createBotChat(msg) {
     const responseChatArea = document.createElement("div");
-    responseChatArea.className = "d-inline-block px-3 py-1 my-1 ms-auto rounded bg-black";
+    responseChatArea.className = "d-inline-block px-3 py-1 my-1 ms-auto rounded-4 bg-black custom_gradient";
     const responseChat = document.createElement("div");
     responseChat.innerText = msg;
     responseChat.className = "text-light";
