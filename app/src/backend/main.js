@@ -10,7 +10,7 @@ You are an RPG bot. Your job is to be a game master, where you enhance a fantasy
 and play out the ACTIONs from the user according to the situation they are in. NEVER do any
 actions that the player does not specify, unless acting as a different character.
 `
-const TESTING = true;
+const TESTING = false;
 const OpenAI = require('openai');
 const app = express();
 const port = 8000;
@@ -29,15 +29,27 @@ const corsOptions = {
 app.use(cors(corsOptions));  // Use CORS with specific options
 app.use(express.json()); // Middleware to parse JSON bodies
 
+function craftQuery(query) {
+    finalQuery = `NAME: ${gameState.name},
+    LOCATION: ${gameState.location.name} 
+    [ ${gameState.location.description} ],
+    QUEST: ${gameState.currentQuest.name} 
+    [ REWARDS: GOLD:${gameState.currentQuest.rewards.gold}, EXP:${gameState.currentQuest.rewards.exp} ],
+    GOLD: ${gameState.gold},
+    PREVACTION: ${gameState.prevAction},
+    ACTION: ${query}`;
+    return finalQuery;
+}
+
 // Create chat completion
-async function createChat(msg) {
+async function createChat(query) {
     try {
         const completion = await openai.chat.completions.create({
             model: "gpt-4o-mini",
             messages: [
                 { role: "system", content: initPrompt },
                 
-                { role: "user", content: msg, },
+                { role: "user", content: query, },
             ],
         });
         return completion;
@@ -73,9 +85,21 @@ app.post('/chat', async (req, res) => {
         return;
     }
     try {
+        var finalResponse = "";
         const { userMessage } = req.body;  // Extract user message from request body
-        const completion = await createChat(userMessage);  // Await the result of createChat
-        res.json({ response: completion.choices[0].message.content });  // Send the response back
+        console.log(userMessage);
+        if (userMessage.length > 500) {
+            finalResponse = "* Actions must be less than or equal to 500 characters. Please try again.";
+        } else if (userMessage.startsWith("\\")) {
+            finalResponse = handleAction(gameState, userMessage);
+        } else {
+            const query = craftQuery(userMessage);
+            console.log(query);
+            const completion = await createChat(query);  // Await the result of createChat
+            finalResponse = completion.choices[0].message.content;  // Send the response back
+        }
+
+        res.json({ response: finalResponse });
     } catch (error) {
         res.status(500).json({ error: 'Failed to process the request' });  // Handle errors gracefully
     }

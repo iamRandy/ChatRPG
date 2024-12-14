@@ -3,7 +3,7 @@ const { saveGame } = require('./gameCommands/SaveGameCommand.js');
 
 function handleAction(gameState, command) {
     actionResponse = "";
-    console.log(command);
+    // console.log(command);
     switch (command) {
         case '\\addgold':
             gameState.gold += 10;
@@ -18,6 +18,7 @@ function handleAction(gameState, command) {
             }
             break;
         case '\\help':
+            // console.log("help command");
             commandListResponse = `List of Commands:
             \\save (Saves the current game)
             \\help (Shows the list of all commands)`;
