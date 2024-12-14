@@ -15,7 +15,7 @@ const OpenAI = require('openai');
 const app = express();
 const port = 8000;
 
-const jsonString = fs.readFileSync('gameState.txt', 'utf-8');
+const jsonString = fs.readFileSync('./logging/gameState.txt', 'utf-8');
 const gameState = JSON.parse(jsonString);
 
 const openai = new OpenAI({
