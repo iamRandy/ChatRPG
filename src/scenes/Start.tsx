@@ -22,9 +22,9 @@ const Start = () => {
     return (
         <div 
         onClick={handleNextPrompt}
-        className="relative text-4xl w-screen h-screen flex flex-col justify-center 
+        className="relative text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl w-full h-full flex flex-col justify-center 
         items-center overflow-hidden">
-            <div>
+            <div className="px-4 sm:px-6 md:px-8 lg:px-12 max-w-4xl mx-auto text-center">
                 <AnimatePresence mode="wait">
                     {showPrompt === 0 && (
                         <motion.h1
@@ -63,7 +63,7 @@ const Start = () => {
                         transition: { duration: 1 } }}
                     exit={{opacity: 0, y: 10,
                         transition: { duration: 1 } }}
-                    className="bottom-10 absolute mt-4 text-sm text-[#354058]">
+                    className="bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 absolute mt-2 sm:mt-3 md:mt-4 text-xs sm:text-sm md:text-base text-[#354058]">
                         Click to continue...
                     </motion.p>
                 }       
