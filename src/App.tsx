@@ -1,10 +1,11 @@
 import './App.css'
+import StartScene from "./scenes/Start"
 
 function App() {
 
   return (
     <>
-      <h1>Ahh, you're finally awake.</h1>
+      <StartScene />
     </>
   )
 }
