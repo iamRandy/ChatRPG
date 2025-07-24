@@ -1,20 +1,77 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { ArrowBigRightDash } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react"
 
-const Start = () => {
-    const [showHint, setShowHint] = useState(false);
-    const [showPrompt, setShowPrompt] = useState(0);
-    const [canNext, setCanNext] = useState(false);
+interface NameScenePropTypes {
+    mode: null | string;
+    setMode: (value: null | string) => void;
+}
 
-    useEffect(() => {
-        setTimeout(() => {
-            setShowHint(true);
-        }, 5000);
-    }, []);
+const NameScene: React.FC<NameScenePropTypes> = ({ mode, setMode }) => {
+    const [name, setName] = useState<string>("");
+    
+    const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value);
+    }
+
+    const handleSubmitName = () => {
+        window.alert(`Your character's name is ${name}`);
+    }
+
+    return (
+        <motion.h1
+            key="prompt-1"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{
+                opacity: 1, y: 0,
+                transition: { duration: 1, delay: 1.5 }
+            }}
+            onAnimationComplete={latest => {
+                if (latest.opacity === 1) {
+                    setMode("name-input");
+                }
+            }}
+            exit={{
+                opacity: 0, y: -20,
+                transition: { duration: 1 }
+            }}
+            className="relative"
+        >
+            What is your name, <span className="italic">Traveler</span>?
+            {mode && mode === "name-input" &&
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1, duration: 1 }}
+                    className="mt-5 text-sm absolute w-full">
+                    <span className={`flex justify-center placeholder-opacity-100 ${(name !== "") ? "text-white" : "text-[#354058]"}`}>
+                        <input className="w-52 focus:outline-none" type="text" placeholder="Enter a name for your character..."
+                        onChange={handleNameInput} value={name} />
+                        <button className="cursor-pointer scale-100 hover:scale-110"
+                        onClick={handleSubmitName}>
+                            <ArrowBigRightDash className="w-6 h-6" />
+                        </button>
+                    </span>
+                </motion.div>
+            }
+        </motion.h1>
+    );
+}
+
+const Start = () => {
+    const [hasClicked, setHasClicked] = useState<boolean>(false); // Hint user to click
+    const [showPrompt, setShowPrompt] = useState(0);
+    const [canNext, setCanNext] = useState<boolean>(false);
+    const [mode, setMode] = useState<null | string>(null);
+
+    // useEffect(() => {
+    //     console.log("canNext state changed:", canNext);
+    // }, [canNext])
 
     const handleNextPrompt = () => {
         if (!canNext) return;
-        if (showHint) setShowHint(false);
+        if (!hasClicked) setHasClicked(true);
+
         setCanNext(false);
         setShowPrompt(showPrompt + 1);
     }
@@ -32,7 +89,11 @@ const Start = () => {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0, 
                             transition: { duration: 1, delay: 1.5 } }}
-                        onAnimationComplete={() => setCanNext(true)}
+                        onAnimationComplete={latest => {
+                            if (latest.opacity === 1) {
+                                setCanNext(true);
+                            }
+                        }}
                         exit={{ opacity: 0, y: -20,
                             transition: { duration: 1 } }}
                         >
@@ -41,29 +102,26 @@ const Start = () => {
                     )}
 
                     {showPrompt === 1 && (
-                        <motion.h1
-                        key="prompt-1"
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0, 
-                            transition: { duration: 1, delay: 1.5 } }}
-                        onAnimationComplete={() => setCanNext(true)}
-                        exit={{ opacity: 0, y: -20,
-                            transition: { duration: 1 } }}
-                        >
-                            What is your name, Traveler?
-                        </motion.h1>
+                        <NameScene mode={mode} setMode={setMode} />
                     )}
                 </AnimatePresence>
             </div>
             <AnimatePresence>
-                {showHint &&
+                {!hasClicked &&
+                // bounce on enter and exit
                     <motion.p 
                     initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0,
-                        transition: { duration: 1 } }}
-                    exit={{opacity: 0, y: 10,
-                        transition: { duration: 1 } }}
-                    className="bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 absolute mt-2 sm:mt-3 md:mt-4 text-xs sm:text-sm md:text-base text-[#354058]">
+                    animate={{ 
+                        opacity: 1, 
+                        y: 0,
+                        transition: { duration: 0.5, ease: "easeInOut", delay: 5 }
+                    }}
+                    exit={{
+                        opacity: 0, 
+                        y: 10,
+                        transition: { duration: 0.5, ease: "easeInOut" }
+                    }}
+                    className="translate-y-10 absolute mt-2 sm:mt-3 md:mt-4 text-xs sm:text-sm md:text-base text-[#354058]">
                         Click to continue...
                     </motion.p>
                 }       
